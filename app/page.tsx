@@ -1,9 +1,36 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "motion/react";
 import Image from "next/image";
-import { Menu, Play, Star, Zap, Command, Crosshair, CircleDot } from "lucide-react";
+import { Menu, Play, Star, Zap, Command, Crosshair, CircleDot, X } from "lucide-react";
+
+const CASE_STUDIES = [
+  {
+    id: "logistics",
+    category: "Logistics",
+    title: "Global Freight Co.",
+    shortDesc: "Automated bill of lading processing and customs documentation using custom vision models and LLMs.",
+    image: "https://picsum.photos/800/600?random=30",
+    stats: [
+      { value: "95%", label: "Faster Processing" },
+      { value: "$1.2M", label: "Annual Savings" }
+    ],
+    fullDesc: "Global Freight Co. was struggling with a massive backlog of manual data entry for bills of lading and customs documentation. Their team of 50 data entry clerks was overwhelmed, leading to delays and costly errors. We implemented a custom AI vision model combined with LLMs to automatically extract, validate, and process data from unstructured documents in over 20 languages. The system now handles 95% of all documentation autonomously, reducing processing time from hours to seconds and saving the company $1.2M annually in operational costs."
+  },
+  {
+    id: "healthcare",
+    category: "Healthcare",
+    title: "MedTech Solutions",
+    shortDesc: "Replaced manual patient intake and insurance verification with a 24/7 autonomous voice and text agent.",
+    image: "https://picsum.photos/800/600?random=31",
+    stats: [
+      { value: "Zero", label: "Wait Time" },
+      { value: "300%", label: "Capacity Increase" }
+    ],
+    fullDesc: "MedTech Solutions faced a critical bottleneck in patient intake and insurance verification, leading to long wait times and frustrated patients. We deployed a HIPAA-compliant, autonomous voice and text agent that handles the entire intake process 24/7. The AI agent naturally converses with patients, collects necessary medical history, and instantly verifies insurance coverage via API integrations. The result is zero wait time for patients, a 300% increase in intake capacity without adding headcount, and a significant improvement in patient satisfaction scores."
+  }
+];
 
 function ParallaxWrapper({ children, className, speed = 1 }: { children: React.ReactNode, className?: string, speed?: number }) {
   const ref = useRef(null);
@@ -23,6 +50,9 @@ function ParallaxWrapper({ children, className, speed = 1 }: { children: React.R
 }
 
 export default function Home() {
+  const [activeCaseStudyId, setActiveCaseStudyId] = useState<string | null>(null);
+  const activeCaseStudy = CASE_STUDIES.find(c => c.id === activeCaseStudyId);
+
   return (
     <main className="min-h-screen bg-[#050505] text-white selection:bg-[#c4f000] selection:text-black overflow-hidden relative">
       {/* Global Grid Lines */}
@@ -280,57 +310,37 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Case Study 1 */}
-            <div className="border border-black flex flex-col group bg-white">
-              <div className="relative h-64 md:h-80 border-b border-black overflow-hidden bg-neutral-100">
-                <Image src="https://picsum.photos/800/600?random=30" alt="Case Study 1" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
-                <div className="absolute top-4 left-4 bg-[#c4f000] text-black font-mono text-[10px] uppercase tracking-widest px-3 py-1 font-bold z-10">
-                  Logistics
-                </div>
-              </div>
-              <div className="p-8 md:p-12 flex flex-col flex-grow">
-                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Global Freight Co.</h3>
-                <p className="text-black/70 mb-8 leading-relaxed">
-                  Automated bill of lading processing and customs documentation using custom vision models and LLMs.
-                </p>
-                <div className="grid grid-cols-2 gap-8 mt-auto pt-8 border-t border-black/10">
-                  <div>
-                    <div className="text-4xl font-black tracking-tighter mb-1">95%</div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Faster Processing</div>
-                  </div>
-                  <div>
-                    <div className="text-4xl font-black tracking-tighter mb-1">$1.2M</div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Annual Savings</div>
+            {CASE_STUDIES.map((study) => (
+              <div key={study.id} className="border border-black flex flex-col group bg-white">
+                <div className="relative h-64 md:h-80 border-b border-black overflow-hidden bg-neutral-100">
+                  <Image src={study.image} alt={study.title} fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                  <div className="absolute top-4 left-4 bg-[#c4f000] text-black font-mono text-[10px] uppercase tracking-widest px-3 py-1 font-bold z-10">
+                    {study.category}
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Case Study 2 */}
-            <div className="border border-black flex flex-col group bg-white">
-              <div className="relative h-64 md:h-80 border-b border-black overflow-hidden bg-neutral-100">
-                <Image src="https://picsum.photos/800/600?random=31" alt="Case Study 2" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
-                <div className="absolute top-4 left-4 bg-[#c4f000] text-black font-mono text-[10px] uppercase tracking-widest px-3 py-1 font-bold z-10">
-                  Healthcare
+                <div className="p-8 md:p-12 flex flex-col flex-grow">
+                  <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">{study.title}</h3>
+                  <p className="text-black/70 mb-8 leading-relaxed">
+                    {study.shortDesc}
+                  </p>
+                  <div className="grid grid-cols-2 gap-8 mt-auto pt-8 border-t border-black/10 mb-8">
+                    {study.stats.map((stat, idx) => (
+                      <div key={idx}>
+                        <div className="text-4xl font-black tracking-tighter mb-1">{stat.value}</div>
+                        <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <button 
+                    onClick={() => setActiveCaseStudyId(study.id)}
+                    className="group/btn flex items-center justify-between w-full pb-4 border-b-2 border-black hover:border-[#c4f000] transition-colors mt-auto"
+                  >
+                    <span className="font-mono text-xs uppercase tracking-widest font-bold">View Case Study</span>
+                    <div className="w-2 h-2 bg-black group-hover/btn:bg-[#c4f000] transition-colors" />
+                  </button>
                 </div>
               </div>
-              <div className="p-8 md:p-12 flex flex-col flex-grow">
-                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">MedTech Solutions</h3>
-                <p className="text-black/70 mb-8 leading-relaxed">
-                  Replaced manual patient intake and insurance verification with a 24/7 autonomous voice and text agent.
-                </p>
-                <div className="grid grid-cols-2 gap-8 mt-auto pt-8 border-t border-black/10">
-                  <div>
-                    <div className="text-4xl font-black tracking-tighter mb-1">Zero</div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Wait Time</div>
-                  </div>
-                  <div>
-                    <div className="text-4xl font-black tracking-tighter mb-1">300%</div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Capacity Increase</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </ParallaxWrapper>
       </section>
@@ -486,6 +496,74 @@ export default function Home() {
           </footer>
         </ParallaxWrapper>
       </section>
+
+      {/* Case Study Modal Overlay */}
+      <AnimatePresence>
+        {activeCaseStudy && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 bg-black/80 backdrop-blur-sm"
+            onClick={() => setActiveCaseStudyId(null)}
+          >
+            <motion.div 
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="bg-[#f4f4f0] text-black w-full max-w-5xl max-h-[90vh] overflow-y-auto border border-white/20 flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative h-64 md:h-96 w-full border-b border-black shrink-0">
+                <Image src={activeCaseStudy.image} alt={activeCaseStudy.title} fill className="object-cover" referrerPolicy="no-referrer" />
+                <button 
+                  onClick={() => setActiveCaseStudyId(null)}
+                  className="absolute top-6 right-6 w-12 h-12 bg-black text-white flex items-center justify-center hover:bg-[#c4f000] hover:text-black transition-colors z-10"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <div className="absolute bottom-6 left-6 bg-[#c4f000] text-black font-mono text-[10px] uppercase tracking-widest px-3 py-1 font-bold z-10">
+                  {activeCaseStudy.category}
+                </div>
+              </div>
+              
+              <div className="p-8 md:p-16 flex flex-col gap-12">
+                <div>
+                  <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6">{activeCaseStudy.title}</h2>
+                  <p className="text-xl md:text-2xl font-medium leading-relaxed tracking-tight max-w-3xl">
+                    {activeCaseStudy.shortDesc}
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-black/10">
+                  {activeCaseStudy.stats.map((stat, idx) => (
+                    <div key={idx}>
+                      <div className="text-4xl md:text-5xl font-black tracking-tighter mb-2">{stat.value}</div>
+                      <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="max-w-3xl">
+                  <div className="font-mono text-xs uppercase tracking-widest text-black/60 mb-6">The Challenge & Solution</div>
+                  <p className="text-lg leading-relaxed text-black/80 whitespace-pre-line">
+                    {activeCaseStudy.fullDesc}
+                  </p>
+                </div>
+                
+                <button 
+                  onClick={() => setActiveCaseStudyId(null)}
+                  className="self-start mt-8 group flex items-center justify-between w-full max-w-[240px] pb-4 border-b-2 border-black hover:border-[#c4f000] transition-colors"
+                >
+                  <span className="font-mono text-xs uppercase tracking-widest font-bold">Close Case Study</span>
+                  <div className="w-2 h-2 bg-black group-hover:bg-[#c4f000] transition-colors" />
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
