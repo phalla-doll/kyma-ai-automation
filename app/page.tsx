@@ -70,9 +70,10 @@ export default function Home() {
                   We build custom AI systems that handle your repetitive work, so you can focus on growth, not grunt work.
                 </p>
 
-                <button className="group flex items-center justify-between w-full max-w-[240px] pb-4 border-b border-[#c4f000] hover:border-white transition-colors">
-                  <span className="font-mono text-xs uppercase tracking-widest">See how it works</span>
-                  <div className="w-2 h-2 bg-[#c4f000] group-hover:bg-white transition-colors" />
+                <button className="group relative flex items-center justify-between w-full max-w-[240px] pb-4 border-b border-transparent transition-colors">
+                  <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#c4f000] via-white to-[#c4f000] bg-[length:200%_auto] animate-gradient group-hover:h-[2px] transition-all" />
+                  <span className="font-mono text-xs uppercase tracking-widest relative z-10 bg-gradient-to-r from-[#c4f000] via-white to-[#c4f000] bg-[length:200%_auto] animate-gradient bg-clip-text text-transparent group-hover:text-white transition-colors">See how it works</span>
+                  <div className="w-2 h-2 bg-[#c4f000] group-hover:bg-white transition-colors relative z-10" />
                 </button>
 
                 {/* Trust Section */}
