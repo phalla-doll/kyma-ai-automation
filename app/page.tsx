@@ -256,7 +256,7 @@ export default function Home() {
         </ParallaxWrapper>
       </section>
 
-      {/* Pricing */}
+      {/* Case Studies */}
       <section className="relative z-10 bg-[#f4f4f0] text-black pt-32 pb-32 px-4 md:px-8 border-t border-black/10">
         {/* Light Grid Lines */}
         <div className="absolute inset-0 pointer-events-none z-0 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
@@ -271,6 +271,84 @@ export default function Home() {
         <ParallaxWrapper className="relative z-10 max-w-[1600px] mx-auto w-full">
           <div className="mb-16 flex items-center gap-2 font-mono text-xs md:text-sm uppercase tracking-widest text-black/60">
             <span>[04]</span>
+            <span>Case Studies_</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-6xl lg:text-[80px] leading-[0.9] font-black tracking-tighter uppercase mb-24 max-w-4xl">
+            Results that speak in multiples.
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Case Study 1 */}
+            <div className="border border-black flex flex-col group bg-white">
+              <div className="relative h-64 md:h-80 border-b border-black overflow-hidden bg-neutral-100">
+                <Image src="https://picsum.photos/800/600?random=30" alt="Case Study 1" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                <div className="absolute top-4 left-4 bg-[#c4f000] text-black font-mono text-[10px] uppercase tracking-widest px-3 py-1 font-bold z-10">
+                  Logistics
+                </div>
+              </div>
+              <div className="p-8 md:p-12 flex flex-col flex-grow">
+                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">Global Freight Co.</h3>
+                <p className="text-black/70 mb-8 leading-relaxed">
+                  Automated bill of lading processing and customs documentation using custom vision models and LLMs.
+                </p>
+                <div className="grid grid-cols-2 gap-8 mt-auto pt-8 border-t border-black/10">
+                  <div>
+                    <div className="text-4xl font-black tracking-tighter mb-1">95%</div>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Faster Processing</div>
+                  </div>
+                  <div>
+                    <div className="text-4xl font-black tracking-tighter mb-1">$1.2M</div>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Annual Savings</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Case Study 2 */}
+            <div className="border border-black flex flex-col group bg-white">
+              <div className="relative h-64 md:h-80 border-b border-black overflow-hidden bg-neutral-100">
+                <Image src="https://picsum.photos/800/600?random=31" alt="Case Study 2" fill className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" referrerPolicy="no-referrer" />
+                <div className="absolute top-4 left-4 bg-[#c4f000] text-black font-mono text-[10px] uppercase tracking-widest px-3 py-1 font-bold z-10">
+                  Healthcare
+                </div>
+              </div>
+              <div className="p-8 md:p-12 flex flex-col flex-grow">
+                <h3 className="text-3xl font-black uppercase tracking-tighter mb-4">MedTech Solutions</h3>
+                <p className="text-black/70 mb-8 leading-relaxed">
+                  Replaced manual patient intake and insurance verification with a 24/7 autonomous voice and text agent.
+                </p>
+                <div className="grid grid-cols-2 gap-8 mt-auto pt-8 border-t border-black/10">
+                  <div>
+                    <div className="text-4xl font-black tracking-tighter mb-1">Zero</div>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Wait Time</div>
+                  </div>
+                  <div>
+                    <div className="text-4xl font-black tracking-tighter mb-1">300%</div>
+                    <div className="font-mono text-[10px] uppercase tracking-widest text-black/60">Capacity Increase</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ParallaxWrapper>
+      </section>
+
+      {/* Pricing */}
+      <section className="relative z-10 bg-[#f4f4f0] text-black pt-32 pb-32 px-4 md:px-8 border-t border-black/10">
+        {/* Light Grid Lines */}
+        <div className="absolute inset-0 pointer-events-none z-0 px-4 md:px-8 max-w-[1600px] mx-auto w-full">
+          <div className="w-full h-full grid grid-cols-4">
+            <div className="border-l border-black/5 h-full" />
+            <div className="border-l border-black/5 h-full" />
+            <div className="border-l border-black/5 h-full" />
+            <div className="border-l border-r border-black/5 h-full" />
+          </div>
+        </div>
+
+        <ParallaxWrapper className="relative z-10 max-w-[1600px] mx-auto w-full">
+          <div className="mb-16 flex items-center gap-2 font-mono text-xs md:text-sm uppercase tracking-widest text-black/60">
+            <span>[05]</span>
             <span>Investment_</span>
           </div>
           
@@ -340,7 +418,7 @@ export default function Home() {
 
         <ParallaxWrapper className="relative z-10 max-w-[1600px] mx-auto w-full">
           <div className="mb-16 flex items-center gap-2 text-[#c4f000] font-mono text-xs md:text-sm uppercase tracking-widest">
-            <span>[05]</span>
+            <span>[06]</span>
             <span>Proof_</span>
           </div>
           
@@ -384,7 +462,7 @@ export default function Home() {
       <section className="relative z-10 bg-[#c4f000] text-black pt-32 pb-16 px-4 md:px-8 border-t border-black/10">
         <ParallaxWrapper className="relative z-10 max-w-[1600px] mx-auto w-full flex flex-col items-center text-center">
           <div className="mb-8 flex items-center gap-2 font-mono text-xs md:text-sm uppercase tracking-widest text-black/60">
-            <span>[06]</span>
+            <span>[07]</span>
             <span>Initiate_</span>
           </div>
           
